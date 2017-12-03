@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single"
+        >
+        <item
+            android:id="@+id/menu_bio"
+            android:icon="@drawable/bio"
+            android:title="Bio data" />
+
+        <item
+            android:id="@+id/menu_health_chart"
+            android:icon="@drawable/mcharts512"
+            android:title="Health Charts" />
+        <item
+            android:id="@+id/menu_medical_history"
+            android:icon="@drawable/mhistory"
+            android:title="Medical History" />
+        <item
+            android:id="@+id/menu_medical_report"
+            android:icon="@drawable/medical512"
+                       android:title="Medical Reports" />
+        <item
+            android:id="@+id/menu_prescription"
+            android:icon="@drawable/prescription512"
+            android:title="Prescriptions" />
+    </group>
+
+  <!--  <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Send Medical Bill" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+-->
+</menu>

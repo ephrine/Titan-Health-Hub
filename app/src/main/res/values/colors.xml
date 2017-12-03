@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="darkBG">#31000000</color>
+    <color name="bgTrans">#88ffffff</color>
+    <color name="black">#000000</color>
+    <color name="nul">#01ffffff</color>
+    <color name="connectingBG">#44ff00</color>
+    <color name="bg_header_nav">#6fffffff</color>
+</resources>
