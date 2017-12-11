@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -557,8 +558,15 @@ if(loadcount==TotalLoadCount){
 
 
     public void GetStarted(View v){
+        View WebCard=(View)findViewById(R.id.webCard);
+        WebCard.setVisibility(View.VISIBLE);
+        WebView myWebView = (WebView) findViewById(R.id.WebView1);
+        myWebView.loadUrl("https://ephrine.github.io/Titan-Health-Hub/getting-started/");
 
-
+    }
+    public void GetStartedClose(View v){
+        View WebCard=(View)findViewById(R.id.webCard);
+        WebCard.setVisibility(View.GONE);
     }
 
 
