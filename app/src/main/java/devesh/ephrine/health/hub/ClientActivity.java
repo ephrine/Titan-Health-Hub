@@ -35,6 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +52,9 @@ import java.util.Calendar;
 
 public class ClientActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private AdView mAdView;
+
+
     private Menu menu;
 
     public String ClientToken;
@@ -251,7 +256,7 @@ public class ClientActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
-
+        AdsLoad();
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -419,6 +424,8 @@ downloading=0;
             super.onBackPressed();
         }
     }
+
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -434,6 +441,8 @@ downloading=0;
 
         return true;
     }
+
+   */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -551,8 +560,8 @@ favMenu.setTitle("Remove from Favourite");
 if(isFavourite.equals("0")) {
     String favtotal = String.valueOf(FavTotal);
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference favAdd = database.getReference("app/users/" + UserUID + "/fav/" + favtotal + "/uid");
-    favAdd.setValue(ClientUserUID);
+    DatabaseReference favAdd = database.getReference("app/users/" + UserUID + "/fav/" + favtotal + "/token");
+    favAdd.setValue(ClientToken);
 
     DatabaseReference favAddName = database.getReference("app/users/" + UserUID + "/fav/" + favtotal + "/name");
     favAddName.setValue(""+FName+" "+LName+"");
@@ -662,7 +671,7 @@ RecordTotal.setValue(Total);
             View cPrescription=(View)findViewById(R.id.viewPrescription);
             cPrescription.setVisibility(View.INVISIBLE);
 
-
+            AdsLoad();
         } else if (id == R.id.menu_bio) {
             View chome=(View)findViewById(R.id.viewClientHome);
             chome.setVisibility(View.VISIBLE);
@@ -675,7 +684,7 @@ RecordTotal.setValue(Total);
             View cPrescription=(View)findViewById(R.id.viewPrescription);
             cPrescription.setVisibility(View.INVISIBLE);
 
-
+            AdsLoad();
         } else if (id == R.id.menu_medical_history) {
             View chome=(View)findViewById(R.id.viewClientHome);
             chome.setVisibility(View.INVISIBLE);
@@ -689,7 +698,7 @@ RecordTotal.setValue(Total);
             cPrescription.setVisibility(View.INVISIBLE);
             GetHistoryData();
 
-
+            AdsLoad();
         } else if (id == R.id.menu_medical_report) {
 
             View chome=(View)findViewById(R.id.viewClientHome);
@@ -704,7 +713,7 @@ RecordTotal.setValue(Total);
             cPrescription.setVisibility(View.INVISIBLE);
             MedicalReport();
 
-
+            AdsLoad();
         } else if (id == R.id.menu_prescription) {
 			  View chome=(View)findViewById(R.id.viewClientHome);
             chome.setVisibility(View.INVISIBLE);
@@ -717,7 +726,7 @@ RecordTotal.setValue(Total);
             View cPrescription=(View)findViewById(R.id.viewPrescription);
             cPrescription.setVisibility(View.VISIBLE);
 			GetPrescription();
-
+            AdsLoad();
 			
 
         }
@@ -1146,7 +1155,9 @@ LoadingDialog.dismiss();
 
     public void loadCount() {
         if (load == 10) {
-           // View loading = (View) findViewById(R.id.loading);
+            LoadingDialog.dismiss();
+
+            // View loading = (View) findViewById(R.id.loading);
            // loading.setVisibility(View.GONE);
         } else {
 
@@ -5258,7 +5269,13 @@ if(no!=null){
     }
 
 
+    public void AdsLoad(){
 
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+    }
 
    
 	

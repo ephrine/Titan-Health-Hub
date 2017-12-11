@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cloud+ Health Hub</string>
+    <string name="app_name">Titan Health Hub</string>
 
     <string name="facebook_app_id">1992328734324316</string>
 
@@ -15,4 +15,17 @@
 
     <string name="USER_UID">123</string>
     <string name="permission_read_only">Permission: Read Only</string>
+
+    <!-- Ads IDs  -->
+    <!-- Test ID -->
+    <string name="ad_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="int_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    -->
+    <!-- Original id -
+    <string name="ad_id">ca-app-pub-6702661245453687~2611627857</string>
+    <string name="banner_ad_unit_id">ca-app-pub-6702661245453687/7041827459</string>
+    <string name="int_ad_unit_id"> ca-app-pub-6702661245453687/2489947149</string>
+-->
+
 </resources>

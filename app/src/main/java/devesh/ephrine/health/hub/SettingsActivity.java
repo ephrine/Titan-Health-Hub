@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class SettingsActivity extends AppCompatActivity {
     public String TAG = "Ephrine Health Hub :";
     public String UserUID;
@@ -26,12 +28,19 @@ public class SettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    public String PurchaseStatus;
+
+    public String ExpStrDate;
+    public String ExpStrMonth;
+    public String ExpStrYear;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -52,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         ProgressBar StorageBar = (ProgressBar) findViewById(R.id.progressBar5);
         Intent intent = getIntent();
         String FileVal = intent.getStringExtra(MainActivity.EXTRA_MESSAGE_FILE_STORAGE_VAL);
-        if (FileVal.equals("0")) {
+       if (FileVal.equals("0")) {
             FileStorageVal = "0";
         } else {
             FileStorageVal = FileVal;
@@ -64,7 +73,153 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        PurchaseStatus="F";
         mAuth.addAuthStateListener(mAuthListener);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        UserUID=currentUser.getUid().toString();
+
+        DatabaseReference BuyData = database.getReference("app/users/" + UserUID + "/settings/purchase/buy");
+        BuyData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Buy T/F Value is: " + value);
+                if(value!=null){
+
+       PurchaseStatus=value;  // T or F
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        DatabaseReference ExpDateData = database.getReference("app/users/" + UserUID + "/settings/purchase/ExpDate/Exp");
+        ExpDateData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                if(value!=null){
+                    TextView TxExp=(TextView)findViewById(R.id.textView78Exp);
+                    TxExp.setText("Expiry Date: "+value);
+
+
+                    TextView BuyButton=(TextView)findViewById(R.id.textView55);
+
+
+  //  TxAcc.setText("Account Status: Premium Account");
+    BuyButton.setVisibility(View.GONE);
+   // PurchaseStatus="T";
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        DatabaseReference PurchasedDateData = database.getReference("app/users/" + UserUID + "/settings/purchase/BuyDate");
+       PurchasedDateData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                if(value!=null){
+
+                    TextView TxDate=(TextView)findViewById(R.id.textView78BuyDate);
+                    TxDate.setText("Purchase Date: "+value);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+
+        //Find Expiry
+        DatabaseReference ExpDateData1 = database.getReference("app/users/" + UserUID + "/settings/purchase/ExpDate/date");
+        DatabaseReference ExpMonthData1 = database.getReference("app/users/" + UserUID + "/settings/purchase/ExpDate/Month");
+        DatabaseReference ExpYearData1 = database.getReference("app/users/" + UserUID + "/settings/purchase/ExpDate/Year");
+        ExpDateData1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                if(value!=null){
+ExpStrDate=value;
+FindExpiry();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        ExpMonthData1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                if(value!=null){
+                    ExpStrMonth=value;
+                    FindExpiry();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        ExpYearData1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                if(value!=null){
+                    ExpStrYear=value;
+                    FindExpiry();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
     }
 
     @Override
@@ -95,7 +250,14 @@ public class SettingsActivity extends AppCompatActivity {
                     Log.d(TAG, "Progress " + f);
 
                     StorageBar.setProgress(f);
-                    tx.setText(value + "/500");
+
+                    if (PurchaseStatus.equals("T")){
+                        tx.setText(value+"/ Unlimited");
+                    }else{
+                        tx.setText(value + "/500");
+
+                    }
+
                 }
 
             }
@@ -129,6 +291,47 @@ public class SettingsActivity extends AppCompatActivity {
     public void BuyMore(View v){
         Intent ab = new Intent(this, InAppBillingActivity.class);
         startActivity(ab);
+    }
+
+    public void FindExpiry(){
+
+        Calendar c = Calendar.getInstance();
+        // Expiry Date
+        int Tdt=c.get(Calendar.DATE);
+        int Tmonth=c.get(Calendar.MONTH);
+        Tmonth=Tmonth+1;
+        int Tyear=c.get(Calendar.YEAR);
+        TextView BuyNow=(TextView)findViewById(R.id.textView55);
+        TextView TxAcc=(TextView)findViewById(R.id.textView77);
+
+if(ExpStrDate!=null && ExpStrMonth!=null && ExpStrYear!=null){
+
+    int ExpDate=Integer.parseInt(ExpStrDate);
+    int ExpMonth=Integer.parseInt(ExpStrMonth);
+    int ExpYear=Integer.parseInt(ExpStrYear);
+
+    if(Tyear>=ExpYear){
+        if(Tmonth>=ExpMonth){
+            if(Tdt>=ExpDate){
+                BuyNow.setVisibility(View.VISIBLE);
+TxAcc.setText("Account Status: Free Account (Premium Account has been Expired)");
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference BuyData = database.getReference("app/users/" + UserUID + "/settings/purchase/buy");
+                BuyData.setValue("F");
+                PurchaseStatus="F";
+
+            }
+        }
+    }else {
+
+        TxAcc.setText("Account Status: Premium Account");
+        BuyNow.setVisibility(View.INVISIBLE);
+        PurchaseStatus="T";
+    }
+
+}
+
     }
 
 }

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +33,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     public int Load;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_medical_history);
         View Loading=(View)findViewById(R.id.loading);
         Loading.setVisibility(View.VISIBLE);
-
+        AdsLoad();
         clk = "0";
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 Load=0;
@@ -442,5 +445,11 @@ TxEA.setText(TextEA);
 
     }
 
+    public void AdsLoad(){
 
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+    }
 }

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="devesh.ephrine.health.hub.InAppBillingActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="devesh.ephrine.health.hub.InAppBillingActivity">
 
-        <ScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardElevation="2dp"
+                app:cardElevation="10dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -68,6 +68,41 @@
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/CardViewSuccess"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView79"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thank You"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView81"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Purchase Successfull "
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_green_dark" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 
 </RelativeLayout>

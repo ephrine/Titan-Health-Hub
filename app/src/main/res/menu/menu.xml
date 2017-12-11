@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/help"
+        android:id="@+id/pdf"
         android:orderInCategory="1"
         app:showAsAction="always"
-        android:icon="@drawable/help"
-        android:title="Help" />
+
+        android:title="Create PDF" />
 
 </menu>

@@ -17,68 +17,93 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardElevation="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView44"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="File Storage Quota"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/textView47"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="--"
+                            android:textAlignment="viewStart"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textSize="14sp" />
+
+                        <ProgressBar
+                            android:id="@+id/progressBar5"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:progress="0" />
+
+                        <TextView
+                            android:id="@+id/textView77"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Account Status: Free Account" />
+
+                        <TextView
+                            android:id="@+id/textView78BuyDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Purchase Date: --" />
+
+                        <TextView
+                            android:id="@+id/textView78Exp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Expiry Date: --" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView55"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:onClick="BuyMore"
+                                android:text="Buy More Storage Space"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/holo_blue_dark"
+                                android:textStyle="bold"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="20dp">
-
-                    <TextView
-                        android:id="@+id/textView44"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="File Storage Quota"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/textView47"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="--"
-                        android:textAlignment="viewStart"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textSize="14sp" />
-
-                    <ProgressBar
-                        android:id="@+id/progressBar5"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:progress="0" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView55"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Add More"
-                            android:textAlignment="textEnd"
-                            android:onClick="BuyMore"
-                            android:textColor="@android:color/holo_blue_dark"
-                            android:textStyle="bold"
-                            android:visibility="visible" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/textView64"
@@ -97,14 +122,16 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="25dp" />
+                    android:layout_height="25dp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingRight="10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/textView58"
@@ -123,14 +150,16 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="25dp" />
+                    android:layout_height="25dp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingRight="10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/textView61"
@@ -149,7 +178,8 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="25dp" />
+                    android:layout_height="25dp"
+                    android:visibility="gone" />
 
                 <Switch
                     android:id="@+id/switch1"
@@ -163,6 +193,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textOff="You will not receive monthly news updates related to our products and services "
                     android:textSize="14sp"
+                    android:visibility="gone"
                     tools:checked="true" />
 
                 <TextView
@@ -171,7 +202,8 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="50dp"
-                    android:text="You will receive monthly news updates related to our products and services via email  " />
+                    android:text="You will receive monthly news updates related to our products and services via email  "
+                    android:visibility="gone" />
 
                 <Space
                     android:layout_width="match_parent"

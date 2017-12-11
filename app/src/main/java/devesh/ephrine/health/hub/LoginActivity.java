@@ -144,6 +144,25 @@ public class LoginActivity extends AppCompatActivity {
         // updateUI(currentUser);
         mAuth.addAuthStateListener(mAuthListener);
 
+       // FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (currentUser != null && Login.equals("1")) {
+            // User is signed in
+            Log.d(TAG, "Current User:" + currentUser.getUid());
+            FirstStart="0";
+
+            finish();
+            MainAct();
+        } else {
+            // User is signed out
+            Log.d(TAG, "onAuthStateChanged:signed_out");
+            Login = "0";
+
+            View Splash=(View)findViewById(R.id.ViewSplash);
+            Splash.setVisibility(View.GONE);
+
+        }
+
+
     }
 
     @Override
@@ -185,21 +204,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void MainAct() {
-
-/*        if(FirstStart=="1" || FirstStart.equals("1")){
+/*
+        if(FirstStart=="1" || FirstStart.equals("1")){
 
             Intent ab = new Intent(this, MainActivity.class);
-            ab.putExtra(EXTRA_MESSAGE_FIRST_START, "1");
+           // ab.putExtra(EXTRA_MESSAGE_FIRST_START, "1");
             startActivity(ab);
             finish();
 
         }else{
             Intent ab = new Intent(this, MainActivity.class);
-            ab.putExtra(EXTRA_MESSAGE_FIRST_START, "0");
+            //ab.putExtra(EXTRA_MESSAGE_FIRST_START, "0");
             startActivity(ab);
             finish();
 
-        }*/
+        } */
 
 if(LoginCheck.equals("0")) {
     Intent ab = new Intent(this, MainActivity.class);
@@ -274,6 +293,9 @@ if(LoginCheck.equals("0")) {
                             Gender = UserGender;
                             Fname = FName;
                             Lname = LName;
+                            String ProfileID= Profile.getCurrentProfile().getId().toString();
+                            String ProfilePicUrl="http://graph.facebook.com/"+ProfileID+"/picture?type=large&width=720&height=720";
+
 
 
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -313,6 +335,9 @@ if(LoginCheck.equals("0")) {
 
                             DatabaseReference StorageQuota = database.getReference("app/users/" + UserUID + "/settings/storage/files");
                             StorageQuota.setValue("0");
+
+                            DatabaseReference FBPic = database.getReference("app/users/" + UserUID + "/pic");
+                            FBPic.setValue(ProfilePicUrl);
 
 
 

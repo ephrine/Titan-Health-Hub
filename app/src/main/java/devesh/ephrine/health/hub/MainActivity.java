@@ -1,6 +1,7 @@
 package devesh.ephrine.health.hub;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,8 +11,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.customtabs.CustomTabsServiceConnection;
+import android.support.customtabs.CustomTabsSession;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v4.widget.DrawerLayout;
@@ -35,6 +40,11 @@ import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.widget.ProfilePictureView;
 import com.github.siyamed.shapeimageview.CircularImageView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -60,6 +70,9 @@ public class MainActivity extends Activity {
     public int loadcount=0;
     public int TotalLoadCount=4;
     public String UserName;
+    private AdView mAdView;
+
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +80,8 @@ public class MainActivity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
+
+        AdsLoad();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -94,7 +109,7 @@ public class MainActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //     w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
+//            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
 
         }
 
@@ -217,6 +232,10 @@ public class MainActivity extends Activity {
             View Note = (View) findViewById(R.id.ViewNote);
             Note.setVisibility(View.GONE);
         }*/
+
+
+
+
 
     }
 /*
@@ -484,8 +503,21 @@ if(loadcount==TotalLoadCount){
     @Override
     public void onBackPressed() {
 
-           MainActivity.this.finish();
-           super.onBackPressed();
+        if(mInterstitialAd.isLoaded()){
+
+            mInterstitialAd.show();
+
+        }else{
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+            super.onBackPressed();
+
+            MainActivity.this.finish();
+
+        }
+
+
+
+         //  super.onBackPressed();
 
     }
 
@@ -522,15 +554,11 @@ if(loadcount==TotalLoadCount){
         }
     }
 
-    public void GetStarted(View v){
-        // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
-// Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
-// and launch the desired Url with CustomTabsIntent.launchUrl()
 
-        String url ="https://ephrine.blogspot.com";
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(this, Uri.parse(url));
+
+    public void GetStarted(View v){
+
+
     }
 
 
@@ -547,5 +575,54 @@ if(loadcount==TotalLoadCount){
         editor.commit();
 
     }
+
+    public void AdsLoad(){
+        MobileAds.initialize(this,
+                getString(R.string.ad_id));
+
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        // Int Ads
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.int_ad_unit_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                MainActivity.this.finish();
+
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                MainActivity.this.finish();
+
+                // Code to be executed when when the interstitial ad is closed.
+            }
+        });
+
+    }
+
+
 
 }

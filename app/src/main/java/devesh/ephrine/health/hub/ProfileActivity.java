@@ -110,8 +110,8 @@ scr="h";
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //    Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+    //    MenuInflater inflater = getMenuInflater();
+      //  inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -119,9 +119,9 @@ scr="h";
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
-            case R.id.help:
+            //case R.id.help:
 //               setContentView(R.layout.edit_profile);
-                break;
+                //break;
 
 
             default:

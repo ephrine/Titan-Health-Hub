@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -19,6 +20,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +32,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +47,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.Calendar;
 
 public class MedicalBillsActivity extends AppCompatActivity {
 
@@ -68,6 +76,13 @@ public String Country;
     private long enqueue;
     private DownloadManager dm;
 
+    public String PurchaseStatus;
+
+    public String ExpStrDate;
+    public String ExpStrMonth;
+    public String ExpStrYear;
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +90,7 @@ public String Country;
         setContentView(R.layout.activity_medical_bills);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Context context=MedicalBillsActivity.this;
-
+        AdsLoad();
         String locale = context.getResources().getConfiguration().locale.getCountry();
         Log.d(TAG, "Country is: " + locale);
         if(locale.equals("IN")){
@@ -133,7 +148,7 @@ public String Country;
             });
 
             DatabaseReference TStorageQuota = database.getReference("app/users/" + UserUID + "/settings/storage/files");
-            TStorageQuota.addListenerForSingleValueEvent(new ValueEventListener() {
+            TStorageQuota.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
@@ -225,6 +240,125 @@ public String Country;
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        UserUID=currentUser.getUid().toString();
+
+        DatabaseReference TStorageQuota = database.getReference("app/users/" + UserUID + "/settings/storage/files");
+        TStorageQuota.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Total files " + value);
+                if(value!=null){
+                    FileStorageVal=value;
+                    Log.i(TAG, "File storage "+FileStorageVal);
+                    FindExpiry();
+
+                }
+                else {
+                    FileStorageVal="1";
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+
+        DatabaseReference BuyData = database.getReference("app/users/" + UserUID + "/settings/purchase/buy");
+        BuyData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Buy T/F Value is: " + value);
+                if(value!=null){
+
+                    PurchaseStatus=value;  // T or F
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+        //Find Expiry
+        DatabaseReference ExpDateData1 = database.getReference("app/users/" + UserUID + "/settings/purchase/ExpDate/date");
+        DatabaseReference ExpMonthData1 = database.getReference("app/users/" + UserUID + "/settings/purchase/ExpDate/Month");
+        DatabaseReference ExpYearData1 = database.getReference("app/users/" + UserUID + "/settings/purchase/ExpDate/Year");
+        ExpDateData1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                if(value!=null){
+                    ExpStrDate=value;
+                    FindExpiry();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        ExpMonthData1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                if(value!=null){
+                    ExpStrMonth=value;
+                    FindExpiry();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        ExpYearData1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                if(value!=null){
+                    ExpStrYear=value;
+                    FindExpiry();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
     }
 
     @Override
@@ -963,15 +1097,177 @@ StorageQuota.setValue(FileStorageVal);
     public void pickFile(View v) {
         performFileSearch();
     }
-    public void AddStorageValue(){
 
-    }
 
     @Override
     public void onBackPressed() {
          finish();
              super.onBackPressed();
 
+    }
+
+    public void StorageQuotaCheck(){
+if(FileStorageVal!=null){
+
+    FloatingActionButton UploadFab=(FloatingActionButton)findViewById(R.id.UploadFABbutton);
+LinearLayout LLErro=(LinearLayout)findViewById(R.id.LLViewStorageSpaceError);
+
+    int FilVal=Integer.parseInt(FileStorageVal);
+    if(FilVal>=500){
+
+        if(PurchaseStatus.equals("F")){
+            //Quota full+ Acc Expired
+            Log.i(TAG, "Quota full + Acc Expired");
+
+            UploadFab.setVisibility(View.GONE);
+            LLErro.setVisibility(View.VISIBLE);
+
+        }else if(PurchaseStatus.equals("T")) {
+            //Quota full+ Premium Acc
+            Log.i(TAG, "Quota full+ Premium Acc");
+            UploadFab.setVisibility(View.VISIBLE);
+            LLErro.setVisibility(View.GONE);
+
+        }else {
+            UploadFab.setVisibility(View.GONE);
+            LLErro.setVisibility(View.VISIBLE);
+            //Qouta full+ free acc !!
+            Log.i(TAG, "Quota full+ free acc !!");
+
+        }
+
+
+    }else{
+// Quota not Full
+        UploadFab.setVisibility(View.VISIBLE);
+        LLErro.setVisibility(View.GONE);
+
+    }
+
+
+
+
+}
+    }
+
+    public void FindExpiry(){
+
+        Calendar c = Calendar.getInstance();
+        // Expiry Date
+        int Tdt=c.get(Calendar.DATE);
+        int Tmonth=c.get(Calendar.MONTH);
+        Tmonth=Tmonth+1;
+        int Tyear=c.get(Calendar.YEAR);
+              if(ExpStrDate!=null && ExpStrMonth!=null && ExpStrYear!=null){
+
+            int ExpDate=Integer.parseInt(ExpStrDate);
+            int ExpMonth=Integer.parseInt(ExpStrMonth);
+            int ExpYear=Integer.parseInt(ExpStrYear);
+            if(Tyear>=ExpYear){
+                if(Tmonth>=ExpMonth){
+                    if(Tdt>=ExpDate){
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference BuyData = database.getReference("app/users/" + UserUID + "/settings/purchase/buy");
+                        BuyData.setValue("F");
+                        PurchaseStatus="F";
+                        StorageQuotaCheck();
+
+                    }
+                }
+            }else {
+                PurchaseStatus="T";
+                StorageQuotaCheck();
+
+            }
+
+        }else{
+                  PurchaseStatus="F";
+                  StorageQuotaCheck();
+              }
+
+    }
+
+    public void AdsLoad(){
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.pdf:
+
+                boolean isAppInstalled = appInstalledOrNot("com.adobe.scan.android");
+                boolean isAppInstalledCamScanner = appInstalledOrNot("com.intsig.camscanner");
+                boolean isAppInstalledOfficeLens = appInstalledOrNot("com.microsoft.office.officelens");
+                boolean isAppInstalledAdobeReader = appInstalledOrNot("com.adobe.reader");
+
+
+                if(isAppInstalled) {
+                    //This intent will help you to launch if the package is already installed
+                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.adobe.scan.android");
+                    if (launchIntent != null) {
+                        startActivity(launchIntent);//null pointer check in case package name was not found
+                    }
+
+                }
+                else if(isAppInstalledCamScanner) {
+                    //This intent will help you to launch if the package is already installed
+                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.intsig.camscanner");
+                    if (launchIntent != null) {
+                        startActivity(launchIntent);//null pointer check in case package name was not found
+                    }
+
+                }
+                else if(isAppInstalledOfficeLens) {
+                    //This intent will help you to launch if the package is already installed
+                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.microsoft.office.officelens");
+                    if (launchIntent != null) {
+                        startActivity(launchIntent);//null pointer check in case package name was not found
+                    }
+
+                } else if(isAppInstalledAdobeReader) {
+                    //This intent will help you to launch if the package is already installed
+                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.adobe.reader");
+                    if (launchIntent != null) {
+                        startActivity(launchIntent);//null pointer check in case package name was not found
+                    }
+
+                }
+                else {
+                    // Do whatever we want to do if application not installed
+                    // For example, Redirect to play store
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("market://details?id=com.adobe.scan.android")); //Google play store
+                    startActivity(intent);
+                }
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private boolean appInstalledOrNot(String uri) {
+        PackageManager pm = getPackageManager();
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+
+        return false;
     }
 
 
