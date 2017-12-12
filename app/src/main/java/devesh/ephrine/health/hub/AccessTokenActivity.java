@@ -363,7 +363,7 @@ public class AccessTokenActivity extends AppCompatActivity {
         View CameraV = (View) findViewById(R.id.QRCAM);
         CameraV.setVisibility(View.VISIBLE);
         EditText qredittext=(EditText)findViewById(R.id.qredittext);
-       qredittext.setText("22511814");
+    //   qredittext.setText("22511814");
 
         //setContentView(R.layout.qr_read);
 

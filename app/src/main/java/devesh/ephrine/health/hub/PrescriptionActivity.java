@@ -68,6 +68,8 @@ public class PrescriptionActivity extends AppCompatActivity {
     public String tempDesc;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    public int TotalFilStorageVal;
+
 
     private StorageReference mStorageRef;
 
@@ -86,6 +88,9 @@ public class PrescriptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prescription);
+        String FVal=getString(R.string.File_Storage_Default);
+
+        TotalFilStorageVal=Integer.parseInt(FVal);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         AdsLoad();
@@ -1073,7 +1078,7 @@ public class PrescriptionActivity extends AppCompatActivity {
             LinearLayout LLErro=(LinearLayout)findViewById(R.id.LLViewStorageSpaceError2);
 
             int FilVal=Integer.parseInt(FileStorageVal);
-            if(FilVal>=500){
+            if(FilVal>=TotalFilStorageVal){
 
                 if(PurchaseStatus.equals("F")){
                     //Quota full+ Acc Expired

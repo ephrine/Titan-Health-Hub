@@ -48,7 +48,7 @@
 
                         <ProgressBar
                             android:id="@+id/progressBar5"
-                            style="?android:attr/progressBarStyleHorizontal"
+                            style="@android:style/Widget.Holo.ProgressBar.Horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:progress="0" />
@@ -71,6 +71,10 @@
                             android:layout_height="wrap_content"
                             android:text="Expiry Date: --" />
 
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -85,10 +89,27 @@
                                 android:text="Buy More Storage Space"
                                 android:textAlignment="center"
                                 android:textColor="@android:color/holo_blue_dark"
+                                android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:visibility="visible" />
 
                         </LinearLayout>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp" />
+
+                        <TextView
+                            android:id="@+id/textView87"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="policy"
+                            android:text="Read Privacy Policy for Health Data Storage"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/holo_blue_light"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
@@ -249,13 +270,20 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
                     android:paddingTop="10dp"
-                    android:text="Some Settings Parameters has been Disabled as they are in Developing Phase."
+                    android:text="More Awesome Fatures will be Added Soon !!"
                     android:textAlignment="center"
-                    android:textColor="@android:color/holo_red_light"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
-               </ScrollView>
+        </ScrollView>
+
+    <include
+        android:id="@+id/webCard"
+        layout="@layout/activity_browser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
     </RelativeLayout>
 

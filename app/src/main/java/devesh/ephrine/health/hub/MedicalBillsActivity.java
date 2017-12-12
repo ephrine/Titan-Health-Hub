@@ -72,6 +72,7 @@ public class MedicalBillsActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 public String Country;
     private StorageReference mStorageRef;
+    public int TotalFilStorageVal;
 
     private long enqueue;
     private DownloadManager dm;
@@ -88,6 +89,11 @@ public String Country;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_bills);
+
+        String FVal=getString(R.string.File_Storage_Default);
+        TotalFilStorageVal=Integer.parseInt(FVal);
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Context context=MedicalBillsActivity.this;
         AdsLoad();
@@ -1113,7 +1119,7 @@ if(FileStorageVal!=null){
 LinearLayout LLErro=(LinearLayout)findViewById(R.id.LLViewStorageSpaceError);
 
     int FilVal=Integer.parseInt(FileStorageVal);
-    if(FilVal>=500){
+    if(FilVal>=TotalFilStorageVal){
 
         if(PurchaseStatus.equals("F")){
             //Quota full+ Acc Expired

@@ -1,19 +1,20 @@
-<manifest alg="2" build="2018.0.0.379" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="https://ephrine.github.io/Titan-Health-Hub/getting-started" resolutions="1x" timestamp="1513002989730">
+<manifest alg="2" build="2018.0.0.379" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="https://ephrine.github.io/Titan-Health-Hub/getting-started" resolutions="1x" timestamp="1513059277271">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
-    <file name="master_a-master.css" crc="3775814047" ref="index"/>
+    <file name="master_a-master.css" crc="3775814047" ref="index:health-data-storage-privacy-policies"/>
     <file name="index.css" crc="125722675" ref="index"/>
+    <file name="health-data-storage-privacy-policies.css" crc="4234353958" ref="health-data-storage-privacy-policies"/>
   </folder>
   <folder name="scripts">
-    <file name="jquery-1.8.3.min.js" crc="209076791" ref="index"/>
-    <file name="museutils.js" crc="3803043152" ref="index"/>
-    <file name="whatinput.js" crc="86476730" ref="index"/>
-    <file name="museconfig.js" crc="4153641093" ref="index"/>
-    <file name="jquery.watch.js" crc="99325471" ref="index"/>
-    <file name="require.js" crc="4157109226" ref="index"/>
+    <file name="jquery-1.8.3.min.js" crc="209076791" ref="index:health-data-storage-privacy-policies"/>
+    <file name="museutils.js" crc="3803043152" ref="index:health-data-storage-privacy-policies"/>
+    <file name="whatinput.js" crc="86476730" ref="index:health-data-storage-privacy-policies"/>
+    <file name="museconfig.js" crc="4153641093" ref="index:health-data-storage-privacy-policies"/>
+    <file name="jquery.watch.js" crc="99325471" ref="index:health-data-storage-privacy-policies"/>
+    <file name="require.js" crc="4157109226" ref="index:health-data-storage-privacy-policies"/>
   </folder>
   <folder name="images">
-    <file name="logo1 (2)-u145.png" crc="117061884" ref="index"/>
+    <file name="logo1 (2)-u145.png" crc="117061884" ref="index:health-data-storage-privacy-policies"/>
     <file name="1.jpg" crc="4241655380" seo="true" ref="index">
       <caption webpage="index" alt=""/>
     </file>
@@ -31,4 +32,5 @@
     </file>
   </folder>
   <file name="index.html" crc="4212153892" seo="true" mt="1513002983690" redirect="true"/>
+  <file name="health-data-storage-privacy-policies.html" crc="3773987301" seo="true" mt="1513059261670" redirect="true"/>
 </manifest>

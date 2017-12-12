@@ -455,4 +455,10 @@ if(LoginCheck.equals("0")) {
     public void nulll(View v) {
     }
 
+    public  void AppPolicy(View v){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("https://ephrine.blogspot.com/p/privacy-policy.html"));
+        startActivity(intent);
+    }
+
 }

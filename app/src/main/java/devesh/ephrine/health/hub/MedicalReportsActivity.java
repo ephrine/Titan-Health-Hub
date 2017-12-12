@@ -65,7 +65,7 @@ public class MedicalReportsActivity extends AppCompatActivity {
     public String Durl;
     public String SlotNo;
     public String FileStorageVal;
-
+public int TotalFilStorageVal;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -88,6 +88,10 @@ public class MedicalReportsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_reports);
+
+        String FVal=getString(R.string.File_Storage_Default);
+
+        TotalFilStorageVal=Integer.parseInt(FVal);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         AdsLoad();
         mAuth = FirebaseAuth.getInstance();
@@ -1068,7 +1072,7 @@ if(t==1){
             LinearLayout LLErro=(LinearLayout)findViewById(R.id.LLViewStorageSpaceError1);
 
             int FilVal=Integer.parseInt(FileStorageVal);
-            if(FilVal>=500){
+            if(FilVal>=TotalFilStorageVal){
 
                 if(PurchaseStatus.equals("F")){
                     //Quota full+ Acc Expired

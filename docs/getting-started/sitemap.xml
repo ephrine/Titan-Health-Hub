@@ -21,4 +21,10 @@
       <image:loc>https://ephrine.github.io/Titan-Health-Hub/getting-started/images/6.jpg</image:loc>
     </image:image>
   </url>
+  <url>
+    <loc>https://ephrine.github.io/Titan-Health-Hub/getting-started/health-data-storage-privacy-policies.html</loc>
+    <lastmod>2017-12-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>

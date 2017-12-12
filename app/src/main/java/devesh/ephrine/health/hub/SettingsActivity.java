@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,7 +25,7 @@ import java.util.Calendar;
 public class SettingsActivity extends AppCompatActivity {
     public String TAG = "Ephrine Health Hub :";
     public String UserUID;
-    public int TotalStorage = 500;
+    public int TotalStorage;
     public String FileStorageVal;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -40,7 +42,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
-
+String FVal=getString(R.string.File_Storage_Default);
+TotalStorage=Integer.parseInt(FVal);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -254,7 +257,7 @@ FindExpiry();
                     if (PurchaseStatus.equals("T")){
                         tx.setText(value+"/ Unlimited");
                     }else{
-                        tx.setText(value + "/500");
+                        tx.setText(value + "/"+TotalStorage);
 
                     }
 
@@ -275,6 +278,7 @@ FindExpiry();
 
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
+        deleteAppData();
         this.finish();
       //  Intent intent = new Intent(SettingsActivity.this,LoginActivity.class);
         //startActivity(intent);
@@ -334,4 +338,43 @@ TxAcc.setText("Account Status: Free Account (Premium Account has been Expired)")
 
     }
 
+
+
+    public void policy(View v){
+        View WebCard=(View)findViewById(R.id.webCard);
+        WebCard.setVisibility(View.VISIBLE);
+        WebView myWebView = (WebView) findViewById(R.id.WebView1);
+        myWebView.setWebViewClient(new MyWebViewClient());
+        myWebView.loadUrl("https://ephrine.github.io/Titan-Health-Hub/getting-started/health-data-storage-privacy-policies");
+
+    }
+    public void GetStartedClose(View v){
+        View WebCard=(View)findViewById(R.id.webCard);
+        WebCard.setVisibility(View.GONE);
+    }
+    private class MyWebViewClient extends WebViewClient {
+      /*  @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (Uri.parse(url).getHost().equals("www.example.com")) {
+                // This is my web site, so do not override; let my WebView load the page
+                return false;
+            }
+            // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+            return true;
+        }
+*/    }
+
+    private void deleteAppData() {
+        try {
+            // clearing app data
+            String packageName = getApplicationContext().getPackageName();
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear "+packageName);
+            Log.d(TAG, "App Data Cleared !!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } }
 }

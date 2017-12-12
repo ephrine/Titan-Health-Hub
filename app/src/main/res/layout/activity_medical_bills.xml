@@ -76,7 +76,7 @@
             android:layout_marginRight="15dp"
             android:onClick="uploadFab"
             android:scaleType="centerCrop"
-            app:backgroundTint="@android:color/holo_green_dark"
+            app:backgroundTint="@android:color/holo_green_light"
             app:elevation="5dp"
             app:fabSize="normal"
             app:srcCompat="@drawable/addfile" />
