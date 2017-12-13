@@ -7,7 +7,7 @@ android {
         applicationId "devesh.ephrine.health.hub"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 4
+        versionCode 5
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -15,7 +15,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,10 +46,12 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:27.0.2'
     compile 'com.google.zxing:core:3.3.0'
     compile 'com.google.android.gms:play-services-vision:11.6.2'
-   // compile 'com.google.android.gms:play-services-maps:11.6.2'
-   // compile 'com.google.android.gms:play-services-places:11.6.2'
-   // compile 'com.google.android.gms:play-services-nearby:11.6.2'
-   // compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    implementation 'com.google.firebase:firebase-crash:11.6.2'
+
+    // compile 'com.google.android.gms:play-services-maps:11.6.2'
+    // compile 'com.google.android.gms:play-services-places:11.6.2'
+    // compile 'com.google.android.gms:play-services-nearby:11.6.2'
+    // compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     //compile 'com.android.support:customtabs:27.0.2'
     //compile 'com.google.android.gms:play-services-fitness:11.4.2'
     //image crop

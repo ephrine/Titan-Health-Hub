@@ -252,9 +252,12 @@ public class AccessTokenActivity extends AppCompatActivity {
                 Log.d(TAG, "No Permission");
             } else if (checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 Log.d(TAG, "Yes Permission ");
-                ReadQR();
 
+              ReadQR();
             }
+        }else{
+ReadQR();
+
         }
 
 
@@ -359,6 +362,7 @@ public class AccessTokenActivity extends AppCompatActivity {
     }
 
     public void ReadQR() {
+
         GMV = 1;
         View CameraV = (View) findViewById(R.id.QRCAM);
         CameraV.setVisibility(View.VISIBLE);
@@ -389,7 +393,23 @@ public class AccessTokenActivity extends AppCompatActivity {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    cameraSource.start(cameraView.getHolder());
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(AccessTokenActivity.this, new String[]{android.Manifest.permission.CAMERA}, 1);
+                            Log.d(TAG, "No Permission");
+                        } else if (checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                            Log.d(TAG, "Yes Permission ");
+                            cameraSource.start(cameraView.getHolder());
+
+
+
+                        }
+                    }else{
+                        cameraSource.start(cameraView.getHolder());
+
+                    }
+
 
                 } catch (IOException ie) {
                     Log.e("CAMERA SOURCE", ie.getMessage());

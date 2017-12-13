@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -852,27 +853,37 @@ StorageQuota.setValue(FileStorageVal);
 
     }
 
+    public static boolean isKindle(){
+        final String AMAZON = "SAMSUNG";
+        final String KINDLE_FIRE = "Kindle Fire";
+
+        return (Build.MANUFACTURER.equals(AMAZON));
+    }
 
     /**
      * Fires an intent to spin up the "file chooser" UI and select an image.
      */
     public void performFileSearch() {
 
-        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
-        // browser.
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
 
-        // Filter to only show results that can be "opened", such as a
-        // file (as opposed to a list of contacts or timezones)
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+            // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
+            // browser.
+//        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            // Filter to only show results that can be "opened", such as a
+            // file (as opposed to a list of contacts or timezones)
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
 
-        // Filter to show only images, using the image MIME data type.
-        // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
-        // To search for all documents available via installed storage providers,
-        // it would be "*/*".
-        intent.setType("*/*");
+            // Filter to show only images, using the image MIME data type.
+            // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
+            // To search for all documents available via installed storage providers,
+            // it would be "*/*".
+            intent.setType("*/*");
 
-        startActivityForResult(intent, READ_REQUEST_CODE);
+            startActivityForResult(intent, READ_REQUEST_CODE);
+
+
+
     }
 
     @Override

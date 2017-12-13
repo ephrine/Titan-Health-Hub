@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,11 +36,14 @@ public class SettingsActivity extends AppCompatActivity {
     public String ExpStrDate;
     public String ExpStrMonth;
     public String ExpStrYear;
+    public int LoadCount;
+    public int TotalLoadCount=6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        LoadCount=0;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
 String FVal=getString(R.string.File_Storage_Default);
@@ -91,9 +95,11 @@ TotalStorage=Integer.parseInt(FVal);
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Buy T/F Value is: " + value);
                 if(value!=null){
-
+                    LoadCount=LoadCount+1;
        PurchaseStatus=value;  // T or F
 
+                }else {
+                    LoadCount=LoadCount+1;
                 }
             }
 
@@ -113,6 +119,7 @@ TotalStorage=Integer.parseInt(FVal);
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is: " + value);
                 if(value!=null){
+                    LoadCount=LoadCount+1;
                     TextView TxExp=(TextView)findViewById(R.id.textView78Exp);
                     TxExp.setText("Expiry Date: "+value);
 
@@ -125,6 +132,8 @@ TotalStorage=Integer.parseInt(FVal);
    // PurchaseStatus="T";
 
 
+                }else {
+                    LoadCount=LoadCount+1;
                 }
             }
 
@@ -144,11 +153,13 @@ TotalStorage=Integer.parseInt(FVal);
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is: " + value);
                 if(value!=null){
-
+                    LoadCount=LoadCount+1;
                     TextView TxDate=(TextView)findViewById(R.id.textView78BuyDate);
                     TxDate.setText("Purchase Date: "+value);
 
 
+                }else {
+                    LoadCount=LoadCount+1;
                 }
             }
 
@@ -173,8 +184,11 @@ TotalStorage=Integer.parseInt(FVal);
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is: " + value);
                 if(value!=null){
+                    LoadCount=LoadCount+1;
 ExpStrDate=value;
 FindExpiry();
+                }else {
+                    LoadCount=LoadCount+1;
                 }
             }
 
@@ -192,9 +206,13 @@ FindExpiry();
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is: " + value);
                 if(value!=null){
+                    LoadCount=LoadCount+1;
                     ExpStrMonth=value;
                     FindExpiry();
+                }else {
+                    LoadCount=LoadCount+1;
                 }
+
             }
 
             @Override
@@ -213,6 +231,9 @@ FindExpiry();
                 if(value!=null){
                     ExpStrYear=value;
                     FindExpiry();
+                  //  LoadCount=LoadCount+1;
+                }else {
+                    //LoadCount=LoadCount+1;
                 }
             }
 
@@ -248,6 +269,7 @@ FindExpiry();
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is: " + value);
                 if (value != null) {
+                    LoadCount=LoadCount+1;
                     int Val = Integer.valueOf(value);
                     int f= (int)(((double)Val/(double)TotalStorage) * 100);
                     Log.d(TAG, "Progress " + f);
@@ -261,6 +283,8 @@ FindExpiry();
 
                     }
 
+                }else {
+                    LoadCount=LoadCount+1;
                 }
 
             }
@@ -293,8 +317,17 @@ FindExpiry();
     }
 
     public void BuyMore(View v){
-        Intent ab = new Intent(this, InAppBillingActivity.class);
-        startActivity(ab);
+        Log.d(TAG, "Total Loadcount: "+LoadCount);
+
+        if(LoadCount==TotalLoadCount){
+            Intent ab = new Intent(this, InAppBillingActivity.class);
+            startActivity(ab);
+        }else {
+
+            Toast.makeText(SettingsActivity.this, "Connecting to Server... Please wait)",
+                    Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void FindExpiry(){

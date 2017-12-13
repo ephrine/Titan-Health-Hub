@@ -20,35 +20,47 @@
         android:name="android.hardware.touchscreen"
         android:required="false" />
 
+    <!-- App compatible with Tablet & Phones-->
+    <supports-screens android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:resizeableActivity="true"
+        android:hardwareAccelerated="true"
+        android:appCategory="productivity"
+        android:description="@string/app_desc" >
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
         <activity
             android:name=".MainActivity"
-            android:icon="@drawable/ic_launcher_round"
-            android:theme="@style/HomeAppTheme">
+
+            android:theme="@style/HomeAppTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MedicalReportsActivity"
             android:label="My Medical Reports"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -61,6 +73,7 @@
         <activity
             android:name=".HealthChartActivity"
             android:label="My Health Charts"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -78,10 +91,12 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -94,7 +109,8 @@
         <activity
             android:name=".PrescriptionActivity"
             android:label="My Prescriptions"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="devesh.ephrine.health.hub.MainActivity" />
@@ -106,6 +122,7 @@
         <activity
             android:name=".MedicalHistoryActivity"
             android:label="My Medical History"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -118,6 +135,7 @@
         <activity
             android:name=".MedicalBillsActivity"
             android:label="My Medical Bills"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -130,14 +148,16 @@
         <activity
             android:name=".ProfileActivity"
             android:label="My Profile"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="Settings">
+            android:label="Settings"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="devesh.ephrine.health.hub.MainActivity" />
@@ -149,7 +169,8 @@
         <activity
             android:name=".AccessTokenActivity"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="devesh.ephrine.health.hub.MainActivity" />
@@ -162,13 +183,15 @@
             android:name=".ClientActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".InAppBillingActivity" />
+        <activity android:name=".InAppBillingActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

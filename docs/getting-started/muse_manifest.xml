@@ -1,4 +1,4 @@
-<manifest alg="2" build="2018.0.0.379" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="https://ephrine.github.io/Titan-Health-Hub/getting-started" resolutions="1x" timestamp="1513059277271">
+<manifest alg="2" build="2018.0.0.379" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="https://ephrine.github.io/Titan-Health-Hub/getting-started" resolutions="1x" timestamp="1513089894502">
   <folder name="css">
     <file name="site_global.css" crc="444006867"/>
     <file name="master_a-master.css" crc="3775814047" ref="index:health-data-storage-privacy-policies"/>
@@ -31,6 +31,6 @@
       <caption webpage="index" alt=""/>
     </file>
   </folder>
-  <file name="index.html" crc="4212153892" seo="true" mt="1513002983690" redirect="true"/>
+  <file name="index.html" crc="4188326639" seo="true" mt="1513089883457" redirect="true"/>
   <file name="health-data-storage-privacy-policies.html" crc="3773987301" seo="true" mt="1513059261670" redirect="true"/>
 </manifest>
