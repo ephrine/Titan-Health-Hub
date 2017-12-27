@@ -56,6 +56,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 
 public class MainActivity extends Activity {
     public static final String EXTRA_MESSAGE_USER_TOKEN = "devesh.ephrine.health.hub";
@@ -122,7 +124,7 @@ public class MainActivity extends Activity {
 
         DatabaseReference BGload = database.getReference("bg/img");
 // Read from the database
-        BGload.addListenerForSingleValueEvent(new ValueEventListener() {
+        BGload.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -174,7 +176,7 @@ public class MainActivity extends Activity {
             UserUID = user.getUid();
 
             DatabaseReference StorageQuota = database.getReference("app/users/" + UserUID + "/settings/storage/files");
-            StorageQuota.addListenerForSingleValueEvent(new ValueEventListener() {
+            StorageQuota.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
@@ -274,10 +276,14 @@ public class MainActivity extends Activity {
 
     @Override
     public void onStop() {
+
+
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+      //  deleteCache(MainActivity.this);
+
     }
 
     @Override
@@ -459,7 +465,7 @@ public class MainActivity extends Activity {
     public void DownloadToken() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference Token = database.getReference("app/users/" + UserUID + "/access/tokens/token");
-        Token.addListenerForSingleValueEvent(new ValueEventListener() {
+        Token.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -624,6 +630,7 @@ if(loadcount==TotalLoadCount){
 
             @Override
             public void onAdLeftApplication() {
+
                 MainActivity.this.finish();
 
                 // Code to be executed when the user has left the app.
@@ -631,6 +638,7 @@ if(loadcount==TotalLoadCount){
 
             @Override
             public void onAdClosed() {
+
                 MainActivity.this.finish();
 
                 // Code to be executed when when the interstitial ad is closed.
@@ -640,5 +648,28 @@ if(loadcount==TotalLoadCount){
     }
 
 
+    public static void deleteCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            deleteDir(dir);
+        } catch (Exception e) {}
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        } else if(dir!= null && dir.isFile()) {
+            return dir.delete();
+        } else {
+            return false;
+        }
+    }
 
 }

@@ -7,13 +7,6 @@
     android:layout_height="match_parent"
     tools:context="devesh.ephrine.health.hub.LoginActivity">
 
-    <include
-        android:id="@+id/loading"
-        layout="@layout/loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
@@ -45,7 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -104,6 +98,31 @@
         android:textColor="@android:color/holo_blue_light"
         android:textSize="12sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView37"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_above="@+id/textView84"
+        android:layout_alignLeft="@+id/login_button"
+        android:layout_alignStart="@+id/login_button"
+        app:srcCompat="@drawable/doclady" />
+
+    <TextView
+        android:id="@+id/textView86"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView37"
+        android:layout_centerHorizontal="true"
+        android:text="Store and Manage Your Health Data \nConnect with your Doctor \nAnd Much More"
+        android:textAlignment="center" />
+
+    <include
+        android:id="@+id/loading"
+        layout="@layout/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </RelativeLayout>
 

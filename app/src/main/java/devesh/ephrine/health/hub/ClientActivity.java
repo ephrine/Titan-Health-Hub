@@ -5209,20 +5209,15 @@ if(no!=null){
         startActivity(intent);
     }*/
 
-   
     public void PrescmenuDownload() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final Drawable DOCDrawable = getResources().getDrawable(R.drawable.prescription512);
         ImageView im = (ImageView) findViewById(R.id.imageViewClient);
         im.setImageDrawable(DOCDrawable);
-
-
         final TextView t1 = (TextView) findViewById(R.id.textView16TitleClient);
         final TextView t2 = (TextView) findViewById(R.id.textView17DescClient);
-
         t1.setText("Loading..");
         t2.setText("");
-
         DatabaseReference title = database.getReference("app/users/" + ClientUserUID + "/data/Prescriptions/" + SlotNo + "/title");
         title.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -5243,7 +5238,6 @@ if(no!=null){
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
         DatabaseReference desc = database.getReference("app/users/" + ClientUserUID + "/data/Prescriptions/" + SlotNo + "/desc");
         desc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -5265,18 +5259,11 @@ if(no!=null){
             }
         });
 
-
     }
-
-
     public void AdsLoad(){
-
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
     }
-
-   
 	
 }

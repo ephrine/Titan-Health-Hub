@@ -238,7 +238,7 @@ if(LoginCheck.equals("0")) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference NewUserData = database.getReference("app/users/" + UserUID + "/new");
 // Read from the database
-        NewUserData.addListenerForSingleValueEvent(new ValueEventListener() {
+        NewUserData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -399,7 +399,7 @@ if(LoginCheck.equals("0")) {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference Tcheck = database.getReference("app/TokenBucket/" + UserToken + "/UID");
         // Read from the database
-        Tcheck.addListenerForSingleValueEvent(new ValueEventListener() {
+        Tcheck.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again

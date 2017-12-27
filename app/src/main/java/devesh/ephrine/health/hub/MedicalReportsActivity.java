@@ -48,6 +48,13 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
 
+import es.voghdev.pdfviewpager.library.PDFViewPager;
+import es.voghdev.pdfviewpager.library.RemotePDFViewPager;
+import es.voghdev.pdfviewpager.library.adapter.BasePDFPagerAdapter;
+import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter;
+import es.voghdev.pdfviewpager.library.remote.DownloadFile;
+import es.voghdev.pdfviewpager.library.util.FileUtil;
+
 public class MedicalReportsActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private static String LOG_TAG = "RecyclerViewActivity";
@@ -198,6 +205,7 @@ public int TotalFilStorageVal;
                             startActivity(i);
                             Toast.makeText(MedicalReportsActivity.this, "Download Complete",
                                     Toast.LENGTH_SHORT).show();
+
 
                         }
                         if(DownloadManager.STATUS_FAILED==16){
@@ -548,6 +556,7 @@ if(t==1){
 
     }
 
+
     public void LayoutDownload(View v) {
 
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -560,9 +569,8 @@ if(t==1){
         //   Intent intent = new Intent(Intent.ACTION_VIEW);
      //   intent.setData(Uri.parse(Durl));
       //  startActivity(intent);
+
     }
-
-
     public void LayoutDelete(View v) {
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
