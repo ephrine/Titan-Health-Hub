@@ -9,4 +9,5 @@
     <color name="nul">#01ffffff</color>
     <color name="connectingBG">#44ff00</color>
     <color name="bg_header_nav">#6fffffff</color>
+    <color name="loginBGtrans">#5c000000</color>
 </resources>
